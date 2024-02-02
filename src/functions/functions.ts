@@ -12,6 +12,30 @@ export function add(first: number, second: number): number {
 }
 
 /**
+ * 2数の掛け算を実行する
+ * @customfunction
+ * @param first かけられる数
+ * @param second かける数
+ * @returns 掛け算した結果
+ */
+export function test_times(first: number, second: number): number {
+  return first * second;
+}
+
+/**
+ * 文字列を結合する
+ * @customfunction
+ * @param first 前の文字列
+ * @param second 後ろ文字列
+ * @returns 連結した文字列
+ */
+export function test_add_string(first: string, second: string): string {
+  return first +"+"+ second;
+}
+
+
+
+/**
  * Displays the current time once a second.
  * @customfunction
  * @param invocation Custom function handler
