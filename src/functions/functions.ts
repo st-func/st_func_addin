@@ -1,6 +1,20 @@
 ﻿/* global clearInterval, console, CustomFunctions, setInterval */
 
 /**
+ * 配列同士を加算する
+ * @customfunction
+ * @param first First number
+ * @param second Second number
+ * @returns The sum of the two numbers.
+ */
+export function addArrayTest(first: number[][], second: number[][]): number[][] {
+  let result:number[][]=[];
+  for(let i=0;i<first.length;i++){
+    result.push([first[i][0]+second[i][0]]);
+  }
+  return result;
+}
+/**
  * Adds two numbers.
  * @customfunction
  * @param first First number
