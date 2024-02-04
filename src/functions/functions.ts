@@ -1,104 +1,25 @@
-﻿/* global clearInterval, console, CustomFunctions, setInterval */
-
-/**
- * 配列同士を加算する
- * @customfunction
- * @param first First number
- * @param second Second number
- * @returns The sum of the two numbers.
+﻿/**
+ *  組立H形鋼の断面性能。
+ * @customfunction secBuildH secBuildH
+ * @param propertyType 表示したい断面性能のタイプ 
+ * @param a 成 A
+ * @param b フランジ幅 B
+ * @param t1 ウェブ厚 t1
+ * @param t2 フランジ厚 t2
+ * @returns 断面性能
  */
-export function addArrayTest(first: number[][], second: number[][]): number[][] {
-  let result:number[][]=[];
-  for(let i=0;i<first.length;i++){
-    result.push([first[i][0]+second[i][0]]);
+export function secBuildH(propertyType:string, a:number, b:number, t1:number, t2:number):number{
+  const a_in:number=a-2*t2;
+  const b_in:number=b-t1;
+  switch(propertyType){
+    case 'A':
+      return b*a-b_in*a_in;
+    case 'Iy':
+      return (b*a**3-b_in*a_in**3)/12.0;
+    case 'Iz':
+      return (t2*2*b**3+a_in*t1**3)/12.0;
+    default:
+      let error = new CustomFunctions.Error(CustomFunctions.ErrorCode.invalidValue, `[${propertyType}]は正しくないタイプ名です`);
+      throw error;
   }
-  return result;
-}
-/**
- * Adds two numbers.
- * @customfunction
- * @param first First number
- * @param second Second number
- * @returns The sum of the two numbers.
- */
-export function add(first: number, second: number): number {
-  return first + second;
-}
-
-/**
- * 2数の掛け算を実行する
- * @customfunction
- * @param first かけられる数
- * @param second かける数
- * @returns 掛け算した結果
- */
-export function test_times(first: number, second: number): number {
-  return first * second;
-}
-
-/**
- * 文字列を結合する
- * @customfunction
- * @param first 前の文字列
- * @param second 後ろ文字列
- * @returns 連結した文字列
- */
-export function test_add_string(first: string, second: string): string {
-  return first +"+"+ second;
-}
-
-
-
-/**
- * Displays the current time once a second.
- * @customfunction
- * @param invocation Custom function handler
- */
-export function clock(invocation: CustomFunctions.StreamingInvocation<string>): void {
-  const timer = setInterval(() => {
-    const time = currentTime();
-    invocation.setResult(time);
-  }, 1000);
-
-  invocation.onCanceled = () => {
-    clearInterval(timer);
-  };
-}
-
-/**
- * Returns the current time.
- * @returns String with the current time formatted for the current locale.
- */
-export function currentTime(): string {
-  return new Date().toLocaleTimeString();
-}
-
-/**
- * Increments a value once a second.
- * @customfunction
- * @param incrementBy Amount to increment
- * @param invocation Custom function handler
- */
-export function increment(incrementBy: number, invocation: CustomFunctions.StreamingInvocation<number>): void {
-  let result = 0;
-  const timer = setInterval(() => {
-    result += incrementBy;
-    invocation.setResult(result);
-  }, 1000);
-
-  invocation.onCanceled = () => {
-    clearInterval(timer);
-  };
-}
-
-/**
- * Writes a message to console.log().
- * @customfunction LOG
- * @param message String to write.
- * @returns String to write.
- */
-export function logMessage(message: string): string {
-  console.log(message);
-
-  return message;
 }
