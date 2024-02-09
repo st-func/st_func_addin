@@ -2,6 +2,7 @@
   "plugins": ["office-addins"],
   "extends": ["plugin:office-addins/recommended"],
   "globals": {
-    "CustomFunctions": "readonly"
+    "CustomFunctions": "readonly",
+    "module": "readonly"
   }
 }
