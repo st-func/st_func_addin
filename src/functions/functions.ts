@@ -1,4 +1,26 @@
-﻿import { SecBuildHFunction } from "@st-func/st-func-ts";
+﻿import { SectionPropertyType, SecBuildHFunction } from "@st-func/st-func-ts";
+/**
+ * 文字列をenumのpropertyTypeに変換する
+ * @param propertyType 文字列の断面性能タイプ
+ * @returns enumの断面性能タイプ
+ */
+function ToSectionPropertyType(propertyType: string): SectionPropertyType {
+  switch (propertyType) {
+    case "A":
+      return SectionPropertyType.Area;
+    case "Iy":
+      return SectionPropertyType.SecondMomentOfAreaY;
+    case "Iz":
+      return SectionPropertyType.SecondMomentOfAreaZ;
+    default:
+      let error = new CustomFunctions.Error(
+        CustomFunctions.ErrorCode.invalidValue,
+        `[${propertyType}]は正しくないタイプ名です`
+      );
+      throw error;
+  }
+}
+
 /**
  *  組立H形鋼の断面性能。
  * @customfunction secBuildH secBuildH
@@ -10,19 +32,5 @@
  * @returns 断面性能
  */
 export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
-  switch (propertyType) {
-    case "A":
-      return SecBuildHFunction.build_h_area(a, b, t1, t2);
-    case "Iy":
-      return SecBuildHFunction.build_h_second_moment_of_area_y(a, b, t1, t2);
-    case "Iz":
-      return SecBuildHFunction.build_h_second_moment_of_area_z(a, b, t1, t2);
-    default: {
-      let error = new CustomFunctions.Error(
-        CustomFunctions.ErrorCode.invalidValue,
-        `[${propertyType}]は正しくないタイプ名です`
-      );
-      throw error;
-    }
-  }
+  return SecBuildHFunction.build_h(ToSectionPropertyType(propertyType), a, b, t1, t2);
 }
