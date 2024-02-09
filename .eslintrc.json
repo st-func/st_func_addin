@@ -4,5 +4,8 @@
   "globals": {
     "CustomFunctions": "readonly",
     "module": "readonly"
+  },
+  "rules": {
+    "no-undef": ["error", { "varsIgnorePattern": "^(test|expect)$" }]
   }
 }
