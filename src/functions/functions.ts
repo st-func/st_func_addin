@@ -43,12 +43,12 @@ function UnitOfSectionPropertyType(propertyType: SectionPropertyType): string {
  */
 export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
   let propertyTypeEnum = ToSectionPropertyType(propertyType);
-  let value = SecBuildHFunction.build_h(
+  let value = SecBuildHFunction.buildH(
     propertyTypeEnum,
-    Unit.in(a, "mm"),
-    Unit.in(b, "mm"),
-    Unit.in(t1, "mm"),
-    Unit.in(t2, "mm")
+    Unit.input(a, "mm"),
+    Unit.input(b, "mm"),
+    Unit.input(t1, "mm"),
+    Unit.input(t2, "mm")
   );
-  return Unit.out(value, UnitOfSectionPropertyType(propertyTypeEnum));
+  return Unit.output(value, UnitOfSectionPropertyType(propertyTypeEnum));
 }
