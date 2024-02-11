@@ -4,7 +4,7 @@
  * @param propertyType 文字列の断面性能タイプ
  * @returns enumの断面性能タイプ
  */
-function ToSectionPropertyType(propertyType: string): SectionPropertyType {
+function toSectionPropertyType(propertyType: string): SectionPropertyType {
   switch (propertyType) {
     case "A":
       return SectionPropertyType.Area;
@@ -21,7 +21,7 @@ function ToSectionPropertyType(propertyType: string): SectionPropertyType {
   }
 }
 
-function UnitOfSectionPropertyType(propertyType: SectionPropertyType): string {
+function unitOfSectionPropertyType(propertyType: SectionPropertyType): string {
   switch (propertyType) {
     case SectionPropertyType.Area:
       return "mm^2";
@@ -42,7 +42,7 @@ function UnitOfSectionPropertyType(propertyType: SectionPropertyType): string {
  * @returns 断面性能
  */
 export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
-  let propertyTypeEnum = ToSectionPropertyType(propertyType);
+  let propertyTypeEnum = toSectionPropertyType(propertyType);
   let value = SecBuildHFunction.buildH(
     propertyTypeEnum,
     Unit.input(a, "mm"),
@@ -50,5 +50,5 @@ export function secBuildH(propertyType: string, a: number, b: number, t1: number
     Unit.input(t1, "mm"),
     Unit.input(t2, "mm")
   );
-  return Unit.output(value, UnitOfSectionPropertyType(propertyTypeEnum));
+  return Unit.output(value, unitOfSectionPropertyType(propertyTypeEnum));
 }
