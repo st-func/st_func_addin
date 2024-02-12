@@ -8,6 +8,8 @@ function toSectionPropertyType(propertyType: string): SectionPropertyType {
   switch (propertyType) {
     case "A":
       return SectionPropertyType.Area;
+    case "m":
+      return SectionPropertyType.MassPerMetre;
     case "Iy":
       return SectionPropertyType.SecondMomentOfAreaY;
     case "Iz":
@@ -28,6 +30,8 @@ function unitOfSectionPropertyType(propertyType: SectionPropertyType): string {
     case SectionPropertyType.SecondMomentOfAreaY:
     case SectionPropertyType.SecondMomentOfAreaZ:
       return "mm^4";
+    case SectionPropertyType.MassPerMetre:
+      return "kg/m";
   }
 }
 
