@@ -1,19 +1,19 @@
-﻿import { SectionPropertyType, SecBuildHFunction, Unit } from "@st-func/st-func-ts";
+﻿import { SecPropertyType, SecBuildH, Unit } from "@st-func/st-func-ts";
 /**
  * 文字列をenumのpropertyTypeに変換する
  * @param propertyType 文字列の断面性能タイプ
  * @returns enumの断面性能タイプ
  */
-function toSectionPropertyType(propertyType: string): SectionPropertyType {
+function toSecPropertyType(propertyType: string): SecPropertyType {
   switch (propertyType) {
     case "A":
-      return SectionPropertyType.Area;
+      return SecPropertyType.Area;
     case "m":
-      return SectionPropertyType.MassPerMetre;
-    case "Iy":
-      return SectionPropertyType.SecondMomentOfAreaY;
-    case "Iz":
-      return SectionPropertyType.SecondMomentOfAreaZ;
+      return SecPropertyType.MassPerMetre;
+    case "IY":
+      return SecPropertyType.SecondMomentOfAreaY;
+    case "IZ":
+      return SecPropertyType.SecondMomentOfAreaZ;
     default:
       let error = new CustomFunctions.Error(
         CustomFunctions.ErrorCode.invalidValue,
@@ -23,14 +23,14 @@ function toSectionPropertyType(propertyType: string): SectionPropertyType {
   }
 }
 
-function unitOfSectionPropertyType(propertyType: SectionPropertyType): string {
+function unitOfSecProperty(propertyType: SecPropertyType): string {
   switch (propertyType) {
-    case SectionPropertyType.Area:
+    case SecPropertyType.Area:
       return "mm^2";
-    case SectionPropertyType.SecondMomentOfAreaY:
-    case SectionPropertyType.SecondMomentOfAreaZ:
+    case SecPropertyType.SecondMomentOfAreaY:
+    case SecPropertyType.SecondMomentOfAreaZ:
       return "mm^4";
-    case SectionPropertyType.MassPerMetre:
+    case SecPropertyType.MassPerMetre:
       return "kg/m";
   }
 }
@@ -46,13 +46,13 @@ function unitOfSectionPropertyType(propertyType: SectionPropertyType): string {
  * @returns 断面性能
  */
 export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
-  let propertyTypeEnum = toSectionPropertyType(propertyType);
-  let value = SecBuildHFunction.buildH(
+  let propertyTypeEnum = toSecPropertyType(propertyType);
+  let value = SecBuildH.property(
     propertyTypeEnum,
     Unit.input(a, "mm"),
     Unit.input(b, "mm"),
     Unit.input(t1, "mm"),
     Unit.input(t2, "mm")
   );
-  return Unit.output(value, unitOfSectionPropertyType(propertyTypeEnum));
+  return Unit.output(value, unitOfSecProperty(propertyTypeEnum));
 }
