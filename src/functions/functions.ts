@@ -8,8 +8,16 @@ function toSecPropertyType(propertyType: string): SecPropertyType {
   switch (propertyType) {
     case "A":
       return SecPropertyType.Area;
+    case "ZY":
+      return SecPropertyType.ElasticModulusY;
+    case "ZZ":
+      return SecPropertyType.ElasticModulusZ;
     case "m":
       return SecPropertyType.MassPerMetre;
+    case "iY":
+      return SecPropertyType.RadiusOfGyrationY;
+    case "iZ":
+      return SecPropertyType.RadiusOfGyrationZ;
     case "IY":
       return SecPropertyType.SecondMomentOfAreaY;
     case "IZ":
@@ -25,8 +33,14 @@ function toSecPropertyType(propertyType: string): SecPropertyType {
 
 function unitOfSecProperty(propertyType: SecPropertyType): string {
   switch (propertyType) {
+    case SecPropertyType.RadiusOfGyrationY:
+    case SecPropertyType.RadiusOfGyrationZ:
+      return "mm";
     case SecPropertyType.Area:
       return "mm^2";
+    case SecPropertyType.ElasticModulusY:
+    case SecPropertyType.ElasticModulusZ:
+      return "mm^3";
     case SecPropertyType.SecondMomentOfAreaY:
     case SecPropertyType.SecondMomentOfAreaZ:
       return "mm^4";
