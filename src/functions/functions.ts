@@ -1,4 +1,4 @@
-﻿import { SecPropertyType, SecBuildH, Unit } from "@st-func/st-func-ts";
+﻿import { SecPropertyType, SecBuildBox, SecBuildH, Unit } from "@st-func/st-func-ts";
 /**
  * 文字列をenumのpropertyTypeに変換する
  * @param propertyType 文字列の断面性能タイプ
@@ -47,6 +47,28 @@ function unitOfSecProperty(propertyType: SecPropertyType): string {
     case SecPropertyType.MassPerMetre:
       return "kg/m";
   }
+}
+
+/**
+ *  組立角形鋼管の断面性能。
+ * @customfunction secBuildBox secBuildBox
+ * @param propertyType 表示したい断面性能のタイプ
+ * @param a 成 A
+ * @param b 幅 B
+ * @param t1 成方向の板厚 t1
+ * @param t2 幅方向の板厚 t2
+ * @returns 断面性能
+ */
+export function secBuildBox(propertyType: string, a: number, b: number, t1: number, t2: number): number {
+  let propertyTypeEnum = toSecPropertyType(propertyType);
+  let value = SecBuildBox.property(
+    propertyTypeEnum,
+    Unit.input(a, "mm"),
+    Unit.input(b, "mm"),
+    Unit.input(t1, "mm"),
+    Unit.input(t2, "mm")
+  );
+  return Unit.output(value, unitOfSecProperty(propertyTypeEnum));
 }
 
 /**
