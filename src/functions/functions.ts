@@ -49,6 +49,12 @@ function unitOfSecProperty(propertyType: SecPropertyType): string {
   }
 }
 
+/**
+ * 鉄骨断面の断面性能
+ * @param propertyType 表示したい断面性能のタイプ
+ * @param section SecSteelを継承した鉄骨断面クラスのインスタンス
+ * @returns 断面性能
+ */
 function getSecSteelProperty(propertyType: string, section: SecSteel): number {
   const propertyTypeEnum = toSecPropertyType(propertyType);
   const value = section.property(propertyTypeEnum);
