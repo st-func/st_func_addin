@@ -1,4 +1,4 @@
-﻿import { SecPropertyType, SecBuildBox, SecBuildH, Unit } from "@st-func/st-func-ts";
+﻿import { SecBuildBox, SecBuildH, SecPropertyType, SecSteel, Unit } from "@st-func/st-func-ts";
 /**
  * 文字列をenumのpropertyTypeに変換する
  * @param propertyType 文字列の断面性能タイプ
@@ -49,6 +49,12 @@ function unitOfSecProperty(propertyType: SecPropertyType): string {
   }
 }
 
+function getSecSteelProperty(propertyType: string, section: SecSteel): number {
+  const propertyTypeEnum = toSecPropertyType(propertyType);
+  const value = section.property(propertyTypeEnum);
+  return Unit.output(value, unitOfSecProperty(propertyTypeEnum));
+}
+
 /**
  *  組立角形鋼管の断面性能。
  * @customfunction secBuildBox secBuildBox
@@ -60,15 +66,9 @@ function unitOfSecProperty(propertyType: SecPropertyType): string {
  * @returns 断面性能
  */
 export function secBuildBox(propertyType: string, a: number, b: number, t1: number, t2: number): number {
-  let propertyTypeEnum = toSecPropertyType(propertyType);
-  let value = SecBuildBox.property(
-    propertyTypeEnum,
-    Unit.input(a, "mm"),
-    Unit.input(b, "mm"),
-    Unit.input(t1, "mm"),
-    Unit.input(t2, "mm")
-  );
-  return Unit.output(value, unitOfSecProperty(propertyTypeEnum));
+  const secBuildBox: SecBuildBox = new SecBuildBox();
+  secBuildBox.setDimensions(Unit.input(a, "mm"), Unit.input(b, "mm"), Unit.input(t1, "mm"), Unit.input(t2, "mm"));
+  return getSecSteelProperty(propertyType, secBuildBox);
 }
 
 /**
@@ -82,13 +82,7 @@ export function secBuildBox(propertyType: string, a: number, b: number, t1: numb
  * @returns 断面性能
  */
 export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
-  let propertyTypeEnum = toSecPropertyType(propertyType);
-  let value = SecBuildH.property(
-    propertyTypeEnum,
-    Unit.input(a, "mm"),
-    Unit.input(b, "mm"),
-    Unit.input(t1, "mm"),
-    Unit.input(t2, "mm")
-  );
-  return Unit.output(value, unitOfSecProperty(propertyTypeEnum));
+  const secBuildH: SecBuildH = new SecBuildH();
+  secBuildH.setDimensions(Unit.input(a, "mm"), Unit.input(b, "mm"), Unit.input(t1, "mm"), Unit.input(t2, "mm"));
+  return getSecSteelProperty(propertyType, secBuildH);
 }
