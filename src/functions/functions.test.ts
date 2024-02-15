@@ -1,4 +1,4 @@
-import { secBuildBox, secBuildH } from "./functions";
+import { secBuildBox, secBuildH, secPipe } from "./functions";
 
 test("Build-BOX", () => {
   expect(secBuildBox("A", 1000, 800, 19, 25)).toBeCloseTo(76100.0, 9);
@@ -20,4 +20,15 @@ test("ビルドH", () => {
   expect(secBuildH("iZ", 1200, 400, 19, 25)).toBeCloseTo(79.9229000487988, 13);
   expect(secBuildH("IY", 1200, 400, 19, 25)).toBeCloseTo(9312218750.0, 5);
   expect(secBuildH("IZ", 1200, 400, 19, 25)).toBeCloseTo(267323987.5, 6);
+});
+
+test("secPipe", () => {
+  expect(secPipe("A", 508, 9)).toBeCloseTo(1.41088926072718e4, 8);
+  expect(secPipe("ZY", 508, 9)).toBeCloseTo(1.72946416752188e6, 6);
+  expect(secPipe("ZZ", 508, 9)).toBeCloseTo(1.72946416752188e6, 6);
+  expect(secPipe("m", 508, 9)).toBeCloseTo(1.10754806967083e2, 10);
+  expect(secPipe("iY", 508, 9)).toBeCloseTo(1.76451834787854e2, 10);
+  expect(secPipe("iZ", 508, 9)).toBeCloseTo(1.76451834787854e2, 10);
+  expect(secPipe("IY", 508, 9)).toBeCloseTo(4.39283898550558e8, 4);
+  expect(secPipe("IZ", 508, 9)).toBeCloseTo(4.39283898550558e8, 4);
 });
