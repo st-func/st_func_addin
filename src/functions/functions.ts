@@ -1,4 +1,13 @@
-﻿import { SecBuildBox, SecBuildH, SecFlatBar, SecPipe, SecPropertyType, SecSteel, Unit } from "@st-func/st-func-ts";
+﻿import {
+  SecBuildBox,
+  SecBuildH,
+  SecFlatBar,
+  SecPipe,
+  SecPropertyType,
+  SecRoundBar,
+  SecSteel,
+  Unit,
+} from "@st-func/st-func-ts";
 /**
  * 文字列をenumのpropertyTypeに変換する
  * @param propertyType 文字列の断面性能タイプ
@@ -124,4 +133,17 @@ export function secPipe(propertyType: string, d: number, t: number): number {
   const secPipe: SecPipe = new SecPipe();
   secPipe.setDimensions(Unit.input(d, "mm"), Unit.input(t, "mm"));
   return getSecSteelProperty(propertyType, secPipe);
+}
+
+/**
+ *  丸鋼の断面性能
+ * @customfunction secRoundBar secRoundBar
+ * @param propertyType 表示したい断面性能のタイプ
+ * @param r 直径 R
+ * @returns 断面性能
+ */
+export function secRoundBar(propertyType: string, r: number): number {
+  const secRoundBar: SecRoundBar = new SecRoundBar();
+  secRoundBar.setDimensions(Unit.input(r, "mm"));
+  return getSecSteelProperty(propertyType, secRoundBar);
 }

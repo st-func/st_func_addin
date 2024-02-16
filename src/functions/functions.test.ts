@@ -1,6 +1,6 @@
-import { secBuildBox, secBuildH, secFlatBar, secPipe } from "./functions";
+import { secBuildBox, secBuildH, secFlatBar, secPipe, secRoundBar } from "./functions";
 
-test("Build-BOX", () => {
+test("SecBuildBox", () => {
   expect(secBuildBox("A", 1000, 800, 19, 25)).toBeCloseTo(76100.0, 9);
   expect(secBuildBox("ZY", 1000, 800, 19, 25)).toBeCloseTo(24446708.3333333, 7);
   expect(secBuildBox("ZZ", 1000, 800, 19, 25)).toBeCloseTo(19098293.4166667, 7);
@@ -11,7 +11,7 @@ test("Build-BOX", () => {
   expect(secBuildBox("IZ", 1000, 800, 19, 25)).toBeCloseTo(7639317366.66666, 4);
 });
 
-test("ビルドH", () => {
+test("SecBuildH", () => {
   expect(secBuildH("A", 1200, 400, 19, 25)).toBe(41850.0);
   expect(secBuildH("ZY", 1200, 400, 19, 25)).toBeCloseTo(15520364.5833333, 7);
   expect(secBuildH("ZZ", 1200, 400, 19, 25)).toBeCloseTo(1336619.9375, 8);
@@ -42,4 +42,15 @@ test("secPipe", () => {
   expect(secPipe("iZ", 508, 9)).toBeCloseTo(1.76451834787854e2, 10);
   expect(secPipe("IY", 508, 9)).toBeCloseTo(4.39283898550558e8, 4);
   expect(secPipe("IZ", 508, 9)).toBeCloseTo(4.39283898550558e8, 4);
+});
+
+test("secRoundBar", () => {
+  expect(secRoundBar("A", 32)).toBeCloseTo(8.04247719318987e2, 10);
+  expect(secRoundBar("ZY", 32)).toBeCloseTo(3.21699087727595e3, 9);
+  expect(secRoundBar("ZZ", 32)).toBeCloseTo(3.21699087727595e3, 9);
+  expect(secRoundBar("m", 32)).toBeCloseTo(6.31334459665405, 12);
+  expect(secRoundBar("iY", 32)).toBeCloseTo(8.0, 12);
+  expect(secRoundBar("iZ", 32)).toBeCloseTo(8.0, 12);
+  expect(secRoundBar("IY", 32)).toBeCloseTo(5.14718540364152e4, 8);
+  expect(secRoundBar("IZ", 32)).toBeCloseTo(5.14718540364152e4, 8);
 });
