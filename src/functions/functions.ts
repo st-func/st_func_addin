@@ -1,4 +1,4 @@
-﻿import { SecBuildBox, SecBuildH, SecPipe, SecPropertyType, SecSteel, Unit } from "@st-func/st-func-ts";
+﻿import { SecBuildBox, SecBuildH, SecFlatBar, SecPipe, SecPropertyType, SecSteel, Unit } from "@st-func/st-func-ts";
 /**
  * 文字列をenumのpropertyTypeに変換する
  * @param propertyType 文字列の断面性能タイプ
@@ -31,6 +31,11 @@ function toSecPropertyType(propertyType: string): SecPropertyType {
   }
 }
 
+/**
+ * 断面性能タイプの単位
+ * @param propertyType 断面性能タイプ
+ * @returns 単位
+ */
 function unitOfSecProperty(propertyType: SecPropertyType): string {
   switch (propertyType) {
     case SecPropertyType.RadiusOfGyrationY:
@@ -91,6 +96,20 @@ export function secBuildH(propertyType: string, a: number, b: number, t1: number
   const secBuildH: SecBuildH = new SecBuildH();
   secBuildH.setDimensions(Unit.input(a, "mm"), Unit.input(b, "mm"), Unit.input(t1, "mm"), Unit.input(t2, "mm"));
   return getSecSteelProperty(propertyType, secBuildH);
+}
+
+/**
+ *  平鋼の断面性能
+ * @customfunction secFlatBar secFlatBar
+ * @param propertyType 表示したい断面性能のタイプ
+ * @param b 幅 B
+ * @param t 板厚 t
+ * @returns 断面性能
+ */
+export function secFlatBar(propertyType: string, b: number, t: number): number {
+  const secFlatBar: SecFlatBar = new SecFlatBar();
+  secFlatBar.setDimensions(Unit.input(b, "mm"), Unit.input(t, "mm"));
+  return getSecSteelProperty(propertyType, secFlatBar);
 }
 
 /**
