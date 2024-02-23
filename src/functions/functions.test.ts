@@ -1,14 +1,19 @@
 import { secBuildBox, secBuildH, secFlatBar, secPipe, secRoundBar } from "./functions";
 
 test("SecBuildBox", () => {
-  expect(secBuildBox("A", 1000, 800, 19, 25)).toBeCloseTo(76100.0, 9);
-  expect(secBuildBox("ZY", 1000, 800, 19, 25)).toBeCloseTo(24446708.3333333, 7);
-  expect(secBuildBox("ZZ", 1000, 800, 19, 25)).toBeCloseTo(19098293.4166667, 7);
-  expect(secBuildBox("m", 1000, 800, 19, 25)).toBeCloseTo(597.385, 12);
-  expect(secBuildBox("iY", 1000, 800, 19, 25)).toBeCloseTo(400.777073164208, 12);
-  expect(secBuildBox("iZ", 1000, 800, 19, 25)).toBeCloseTo(316.836310923171, 12);
-  expect(secBuildBox("IY", 1000, 800, 19, 25)).toBeCloseTo(12223354166.6667, 4);
-  expect(secBuildBox("IZ", 1000, 800, 19, 25)).toBeCloseTo(7639317366.66666, 4);
+  const testCases: [string, number, number][] = [
+    ["A", 76100.0, 9],
+    ["ZY", 24446708.3333333, 7],
+    ["ZZ", 19098293.4166667, 7],
+    ["m", 597.385, 12],
+    ["iY", 400.777073164208, 12],
+    ["iZ", 316.836310923171, 12],
+    ["IY", 12223354166.6667, 4],
+    ["IZ", 7639317366.66666, 4],
+  ];
+  testCases.forEach(([input, expected, numDigits]) => {
+    expect(secBuildBox([[input]], 1000, 800, 19, 25)[0][0]).toBeCloseTo(expected, numDigits);
+  });
 });
 
 test("SecBuildH", () => {

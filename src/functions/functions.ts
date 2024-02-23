@@ -76,6 +76,16 @@ function getSecSteelProperty(propertyType: string, section: SecSteel): number {
 }
 
 /**
+ * 鉄骨断面の断面性能（複数）
+ * @param propertyType 表示したい断面性能のタイプの配列
+ * @param section SecSteelを継承した鉄骨断面クラスのインスタンス
+ * @returns 断面性能の配列
+ */
+function getSecSteelPropertys(propertyType: string[][], section: SecSteel): number[][] {
+  return propertyType.map((row) => row.map((item) => getSecSteelProperty(item, section)));
+}
+
+/**
  *  組立角形鋼管の断面性能。
  * @customfunction secBuildBox secBuildBox
  * @param propertyType 表示したい断面性能のタイプ
@@ -85,10 +95,10 @@ function getSecSteelProperty(propertyType: string, section: SecSteel): number {
  * @param t2 幅方向の板厚 t2
  * @returns 断面性能
  */
-export function secBuildBox(propertyType: string, a: number, b: number, t1: number, t2: number): number {
+export function secBuildBox(propertyType: string[][], a: number, b: number, t1: number, t2: number): number[][] {
   const secBuildBox: SecBuildBox = new SecBuildBox();
   secBuildBox.setDimensions(Unit.input(a, "mm"), Unit.input(b, "mm"), Unit.input(t1, "mm"), Unit.input(t2, "mm"));
-  return getSecSteelProperty(propertyType, secBuildBox);
+  return getSecSteelPropertys(propertyType, secBuildBox);
 }
 
 /**
