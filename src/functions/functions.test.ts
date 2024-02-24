@@ -1,31 +1,52 @@
 import { secBuildBox, secBuildH, secFlatBar, secPipe, secRoundBar } from "./functions";
 
-test("SecBuildBox", () => {
-  const testCases: [string, number, number][] = [
-    ["A", 76100.0, 9],
-    ["ZY", 24446708.3333333, 7],
-    ["ZZ", 19098293.4166667, 7],
-    ["m", 597.385, 12],
-    ["iY", 400.777073164208, 12],
-    ["iZ", 316.836310923171, 12],
-    ["IY", 12223354166.6667, 4],
-    ["IZ", 7639317366.66666, 4],
-  ];
-  testCases.forEach(([input, expected, numDigits]) => {
-    expect(secBuildBox([[input]], 1000, 800, 19, 25)[0][0]).toBeCloseTo(expected, numDigits);
+/**
+ * expect().toBeCloseToを実行する際のnumDigitsを算定する関数
+ * @param expected expect().toBecloseToの引数で指定するexpected
+ * @returns expect().toBecloseToの引数で指定するnumdigits
+ */
+function numDigits(expected: number): number {
+  return -Math.ceil(Math.log10(expected)) + 13;
+}
+
+/**
+ * 配列対応の断面性能関数に対して、1x1配列、縦に並べた配列、横に並べた配列に対してテストを行う
+ * @param testCases 断面性能タイプと想定される断面性能の結果の値のリスト
+ * @param secPropertyFunction 断面性能タイプから断面性能を算出する関数
+ */
+function verifySecProperty(
+  testCases: [string, number][],
+  secPropertyFunction: (propertyTypes: string[][]) => number[][]
+) {
+  testCases.forEach(([input, expected]) => {
+    expect(secPropertyFunction([[input]])[0][0]).toBeCloseTo(expected, numDigits(expected));
   });
 
   const parameterTypesV = testCases.map(([input]) => [input]);
-  const resultsV = secBuildBox(parameterTypesV, 1000, 800, 19, 25);
-  testCases.forEach(([input, expected, numDigits], i) => {
-    expect(resultsV[i][0]).toBeCloseTo(expected, numDigits);
+  const resultsV = secPropertyFunction(parameterTypesV);
+  testCases.forEach(([input, expected], i) => {
+    expect(resultsV[i][0]).toBeCloseTo(expected, numDigits(expected));
   });
 
   const parameterTypesH = [testCases.map(([input]) => input)];
-  const resultsH = secBuildBox(parameterTypesH, 1000, 800, 19, 25);
-  testCases.forEach(([input, expected, numDigits], i) => {
-    expect(resultsH[0][i]).toBeCloseTo(expected, numDigits);
+  const resultsH = secPropertyFunction(parameterTypesH);
+  testCases.forEach(([input, expected], i) => {
+    expect(resultsH[0][i]).toBeCloseTo(expected, numDigits(expected));
   });
+}
+
+test("SecBuildBox", () => {
+  const testCases: [string, number][] = [
+    ["A", 76100.0],
+    ["ZY", 24446708.3333333],
+    ["ZZ", 19098293.4166667],
+    ["m", 597.385],
+    ["iY", 400.777073164208],
+    ["iZ", 316.836310923171],
+    ["IY", 12223354166.6667],
+    ["IZ", 7639317366.66666],
+  ];
+  verifySecProperty(testCases, (propertyTypes: string[][]) => secBuildBox(propertyTypes, 1000, 800, 19, 25));
 });
 
 test("SecBuildH", () => {
