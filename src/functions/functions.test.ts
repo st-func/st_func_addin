@@ -14,6 +14,18 @@ test("SecBuildBox", () => {
   testCases.forEach(([input, expected, numDigits]) => {
     expect(secBuildBox([[input]], 1000, 800, 19, 25)[0][0]).toBeCloseTo(expected, numDigits);
   });
+
+  const parameterTypesV = testCases.map(([input]) => [input]);
+  const resultsV = secBuildBox(parameterTypesV, 1000, 800, 19, 25);
+  testCases.forEach(([input, expected, numDigits], i) => {
+    expect(resultsV[i][0]).toBeCloseTo(expected, numDigits);
+  });
+
+  const parameterTypesH = [testCases.map(([input]) => input)];
+  const resultsH = secBuildBox(parameterTypesH, 1000, 800, 19, 25);
+  testCases.forEach(([input, expected, numDigits], i) => {
+    expect(resultsH[0][i]).toBeCloseTo(expected, numDigits);
+  });
 });
 
 test("SecBuildH", () => {
