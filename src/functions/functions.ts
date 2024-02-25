@@ -111,10 +111,10 @@ export function secBuildBox(propertyType: string[][], a: number, b: number, t1: 
  * @param t2 フランジ厚 t2
  * @returns 断面性能
  */
-export function secBuildH(propertyType: string, a: number, b: number, t1: number, t2: number): number {
+export function secBuildH(propertyType: string[][], a: number, b: number, t1: number, t2: number): number[][] {
   const secBuildH: SecBuildH = new SecBuildH();
   secBuildH.setDimensions(Unit.input(a, "mm"), Unit.input(b, "mm"), Unit.input(t1, "mm"), Unit.input(t2, "mm"));
-  return getSecSteelProperty(propertyType, secBuildH);
+  return getSecSteelPropertys(propertyType, secBuildH);
 }
 
 /**
@@ -125,10 +125,10 @@ export function secBuildH(propertyType: string, a: number, b: number, t1: number
  * @param t 板厚 t
  * @returns 断面性能
  */
-export function secFlatBar(propertyType: string, b: number, t: number): number {
+export function secFlatBar(propertyType: string[][], b: number, t: number): number[][] {
   const secFlatBar: SecFlatBar = new SecFlatBar();
   secFlatBar.setDimensions(Unit.input(b, "mm"), Unit.input(t, "mm"));
-  return getSecSteelProperty(propertyType, secFlatBar);
+  return getSecSteelPropertys(propertyType, secFlatBar);
 }
 
 /**
@@ -139,10 +139,10 @@ export function secFlatBar(propertyType: string, b: number, t: number): number {
  * @param t 板厚 t
  * @returns 断面性能
  */
-export function secPipe(propertyType: string, d: number, t: number): number {
+export function secPipe(propertyType: string[][], d: number, t: number): number[][] {
   const secPipe: SecPipe = new SecPipe();
   secPipe.setDimensions(Unit.input(d, "mm"), Unit.input(t, "mm"));
-  return getSecSteelProperty(propertyType, secPipe);
+  return getSecSteelPropertys(propertyType, secPipe);
 }
 
 /**
@@ -152,8 +152,8 @@ export function secPipe(propertyType: string, d: number, t: number): number {
  * @param r 直径 R
  * @returns 断面性能
  */
-export function secRoundBar(propertyType: string, r: number): number {
+export function secRoundBar(propertyType: string[][], r: number): number[][] {
   const secRoundBar: SecRoundBar = new SecRoundBar();
   secRoundBar.setDimensions(Unit.input(r, "mm"));
-  return getSecSteelProperty(propertyType, secRoundBar);
+  return getSecSteelPropertys(propertyType, secRoundBar);
 }
