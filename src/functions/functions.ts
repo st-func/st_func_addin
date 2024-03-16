@@ -94,6 +94,7 @@ function getSecSteelPropertys(propertyType: string[][], section: SecSteel): numb
  * @param t1 成方向の板厚 t1
  * @param t2 幅方向の板厚 t2
  * @returns 断面性能
+ * @helpurl https://st-func.main.jp/docs/st_func_addin/functions/sec_build_box.html
  */
 export function secBuildBox(propertyType: string[][], a: number, b: number, t1: number, t2: number): number[][] {
   const secBuildBox: SecBuildBox = new SecBuildBox();
@@ -110,6 +111,7 @@ export function secBuildBox(propertyType: string[][], a: number, b: number, t1: 
  * @param t1 ウェブ厚 t1
  * @param t2 フランジ厚 t2
  * @returns 断面性能
+ * @helpurl https://st-func.main.jp/docs/st_func_addin/functions/sec_build_h.html
  */
 export function secBuildH(propertyType: string[][], a: number, b: number, t1: number, t2: number): number[][] {
   const secBuildH: SecBuildH = new SecBuildH();
@@ -124,6 +126,7 @@ export function secBuildH(propertyType: string[][], a: number, b: number, t1: nu
  * @param b 幅 B
  * @param t 板厚 t
  * @returns 断面性能
+ * @helpurl https://st-func.main.jp/docs/st_func_addin/functions/sec_flat_bar.html
  */
 export function secFlatBar(propertyType: string[][], b: number, t: number): number[][] {
   const secFlatBar: SecFlatBar = new SecFlatBar();
@@ -138,6 +141,7 @@ export function secFlatBar(propertyType: string[][], b: number, t: number): numb
  * @param d 直径 D
  * @param t 板厚 t
  * @returns 断面性能
+ * @helpurl https://st-func.main.jp/docs/st_func_addin/functions/sec_pipe.html
  */
 export function secPipe(propertyType: string[][], d: number, t: number): number[][] {
   const secPipe: SecPipe = new SecPipe();
@@ -151,6 +155,7 @@ export function secPipe(propertyType: string[][], d: number, t: number): number[
  * @param propertyType 表示したい断面性能のタイプ
  * @param r 直径 R
  * @returns 断面性能
+ * @helpurl https://st-func.main.jp/docs/st_func_addin/functions/sec_round_bar.html
  */
 export function secRoundBar(propertyType: string[][], r: number): number[][] {
   const secRoundBar: SecRoundBar = new SecRoundBar();
